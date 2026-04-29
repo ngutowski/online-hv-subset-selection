@@ -15,7 +15,7 @@ This repository implements **THV-UCB**, an optimistic algorithm for the Top-k Pa
 | File | Description |
 |---|---|
 | `model.py` | All algorithm classes, environment generation, hypervolume utilities, and runner |
-| `exec.py` | Main experiment script — parse args, run all algorithms, save results and plots |
+| `exec.py` | Main experiment script - parse args, run all algorithms, save results and plots |
 
 ---
 
@@ -61,10 +61,10 @@ python exec.py clusters 5 150 70 6 0.02 0.2 5000 0.01
 ```
 
 **Outputs** (saved in `results/`):
-- `results_{tag}.pkl` — full results dict (pickle)
-- `summary_{tag}_eta{eta}.txt` — HV_last100 ± CI and cumulative α-regret ± CI for all algorithms
-- `Regret_{tag}.pdf` — cumulative α-regret curves
-- `HV_{tag}.pdf` — hypervolume trajectory (moving average, w=50)
+- `results_{tag}.pkl` - full results dict (pickle)
+- `summary_{tag}_eta{eta}.txt` - HV_last100 ± CI and cumulative α-regret ± CI for all algorithms
+- `Regret_{tag}.pdf` - cumulative α-regret curves
+- `HV_{tag}.pdf` - hypervolume trajectory (moving average, w=50)
 
 ---
 
@@ -102,7 +102,7 @@ Coordinate-wise UCB boxes + safe pruning (LCB/UCB dominance) + greedy selection 
 | `HVScalarUCB_Zhang2024` | HVScalarUCB+ | • faithful | [36] Zhang, NeurIPS 2024 |
 | `ScalarUCB` | ScalarUCB | ◦ extension | [2] Auer et al., 2002 |
 | `ScalarUCB_RandW` | ScalarUCB-RandW | ◦ extension | [22] Paria et al., UAI 2020 |
-| `RandomK` | RandomK | — | — |
+| `RandomK` | RandomK | - | - |
 
 **Fidelity:** • = faithful top-k adaptation (core mechanism unchanged); ◦ = our extension (modified confidence term, tie-break, or diversity mechanism).
 
