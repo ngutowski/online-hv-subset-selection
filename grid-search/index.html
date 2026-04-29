@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>HV Results — THV-UCB vs Baselines</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, sans-serif; font-size: 13px; background: #fafaf8; color: #1a1a18; }
+h1 { font-size: 17px; font-weight: 500; padding: 16px 20px 4px; }
+.subtitle { font-size: 12px; color: #666; padding: 0 20px 12px; }
+.controls { padding: 8px 20px 12px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.ctrl-group { display: flex; gap: 4px; }
+.ctrl-label { font-size: 11px; color: #888; align-self: center; margin-right: 4px; }
+button {
+  padding: 4px 12px; border-radius: 6px; border: 0.5px solid #ccc;
+  background: transparent; color: #444; font-size: 12px; cursor: pointer;
+}
+button.active { background: #1a1a18; color: #fff; border-color: #1a1a18; }
+button:hover:not(.active) { background: #f0efe8; }
+.sep { width: 1px; height: 24px; background: #e0e0d8; align-self: center; }
+.table-wrap { overflow-x: auto; padding: 0 20px 24px; }
+table { border-collapse: collapse; min-width: 500px; }
+th, td { padding: 5px 10px; text-align: right; white-space: nowrap; border-bottom: 0.5px solid #e8e8e0; }
+th { font-weight: 500; font-size: 11px; color: #666; text-align: right; border-bottom: 1px solid #ccc; }
+th.algo-col { text-align: left; }
+td.algo-col { text-align: left; font-size: 12px; }
+tr.thv td { font-weight: 500; background: #f0f8f0; }
+tr.thv td.algo-col { color: #1a7a3a; }
+.best { font-weight: 700; color: #1a6a2a; }
+.second { color: #4a7a2a; }
+.lose { color: #9a3010; }
+.na { color: #bbb; font-size: 11px; }
+.eta-hdr { font-size: 10px; }
+.front-hdr { text-align: center; font-size: 11px; color: #333; background: #f0efe8; border-bottom: 1px solid #ccc; }
+.hidden { display: none; }
+.note { font-size: 11px; color: #888; padding: 4px 20px 16px; }
+</style>
+</head>
+<body>
+<h1>HV<sub>last100</sub> par méthode, front et η</h1>
+<p class="subtitle">Nomenclature papier · + = variante ◦ des auteurs · 
+sans + = adaptation fidèle • · Gras = meilleur parmi algos avec η · 
+Rouge = THV-UCB non premier</p>
+
+<div class="controls">
+  <span class="ctrl-label">d =</span>
+  <div class="ctrl-group">
+    <button class="active" onclick="setD(2,this)">2</button>
+    <button onclick="setD(3,this)">3</button>
+    <button onclick="setD(4,this)">4</button>
+    <button onclick="setD(5,this)">5</button>
+  </div>
+  <div class="sep"></div>
+  <span class="ctrl-label">Front =</span>
+  <div class="ctrl-group" id="front-btns">
+    <button class="active" onclick="setFront('clusters',this)">clusters</button>
+    <button onclick="setFront('concave',this)">concave</button>
+    <button onclick="setFront('convex',this)">convex</button>
+    <button onclick="setFront('linear',this)">linear</button>
+  </div>
+</div>
+
+<div class="table-wrap">
+  <table id="main-table"><thead><tr><th class="algo-col">algorithme</th><th class="eta-hdr">η = 0.01</th><th class="eta-hdr">η = 0.1</th><th class="eta-hdr">η = 0.3</th><th class="eta-hdr">η = 1.0</th></tr></thead><tbody><tr class="thv"><td class="algo-col">THV-UCB</td><td class="best">0.6556</td><td class="best">0.6515</td><td class="lose">0.6458</td><td class="lose">0.6242</td></tr><tr class=""><td class="algo-col">ParetoUCB <span style="font-size:10px;color:#aaa">(η=—)</span></td><td style="color:#888">0.4438</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr><tr class=""><td class="algo-col">ParetoUCB+</td><td class="second">0.6286</td><td class="">0.6303</td><td class="">0.6324</td><td class="">0.6330</td></tr><tr class=""><td class="algo-col">ParetoUCB-Div</td><td class="">0.5289</td><td class="">0.6104</td><td class="best">0.6502</td><td class="best">0.6410</td></tr><tr class=""><td class="algo-col">ParetoUCB-Crowd</td><td class="">0.5022</td><td class="">0.4031</td><td class="">0.5706</td><td class="second">0.6384</td></tr><tr class=""><td class="algo-col">ParetoTS <span style="font-size:10px;color:#aaa">(η=—)</span></td><td style="color:#888">0.4871</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr><tr class=""><td class="algo-col">ParetoTS+ <span style="font-size:10px;color:#aaa">(η=—)</span></td><td style="color:#888">0.6293</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr><tr class=""><td class="algo-col">ChebyshevUCB</td><td class="">0.4763</td><td class="">0.4338</td><td class="">0.4263</td><td class="">0.4099</td></tr><tr class=""><td class="algo-col">ChebyshevUCB+</td><td class="">0.6284</td><td class="">0.6285</td><td class="">0.6286</td><td class="">0.6282</td></tr><tr class=""><td class="algo-col">HVScalarUCB</td><td class="">0.4898</td><td class="">0.4740</td><td class="">0.4591</td><td class="">0.4401</td></tr><tr class=""><td class="algo-col">HVScalarUCB+</td><td class="">0.5728</td><td class="">0.5692</td><td class="">0.5675</td><td class="">0.5513</td></tr><tr class=""><td class="algo-col">ScalarUCB</td><td class="">0.6285</td><td class="second">0.6308</td><td class="">0.6340</td><td class="">0.6227</td></tr><tr class=""><td class="algo-col">ScalarUCB-RandW</td><td class="">0.3794</td><td class="">0.4025</td><td class="">0.4277</td><td class="">0.4536</td></tr><tr class=""><td class="algo-col">RandomK <span style="font-size:10px;color:#aaa">(η=—)</span></td><td style="color:#888">0.2225</td><td class="na">—</td><td class="na">—</td><td class="na">—</td></tr></tbody></table>
+</div>
+<p class="note" id="config-note">d=2, front=clusters — n=36, k=3, σ=0.05, ε=0.05, T=2000 — Gras = meilleur parmi les algos avec η · rouge = THV-UCB non premier</p>
+
+<script>
+// Nomenclature papier : + = variante ◦ (extension auteurs), sans + = fidèle •
+const ALGOS_D2 = ['THV-UCB','ParetoUCB','ParetoUCB+','ParetoUCB-Div','ParetoUCB-Crowd','ParetoTS','ParetoTS+','ChebyshevUCB','ChebyshevUCB+','HVScalarUCB','HVScalarUCB+','ScalarUCB','ScalarUCB-RandW','RandomK'];
+const ALGOS_D3 = ['THV-UCB','ParetoUCB','ParetoUCB+','ParetoUCB-Div','ParetoUCB-Crowd','ParetoTS','ParetoTS+','ChebyshevUCB','ChebyshevUCB+','HVScalarUCB','HVScalarUCB+','ScalarUCB','ScalarUCB-RandW','RandomK'];
+const ALGOS_D4 = ['THV-UCB','ParetoUCB','ParetoUCB+','ParetoUCB-Div','ParetoUCB-Crowd','ParetoTS','ParetoTS+','ChebyshevUCB','ChebyshevUCB+','HVScalarUCB','HVScalarUCB+','ScalarUCB','ScalarUCB-RandW','RandomK'];
+const ALGOS_D5 = ['THV-UCB','ParetoUCB','ParetoUCB+','ParetoUCB-Div','ParetoUCB-Crowd','ParetoTS','ParetoTS+','ChebyshevUCB','ChebyshevUCB+','HVScalarUCB','HVScalarUCB+','ScalarUCB','ScalarUCB-RandW','RandomK'];
+
+const ETAS = ['0.01','0.1','0.3','1.0'];
+
+const DATA = {
+  2: {
+    // ordre: THV, ParetoUCB(DR), ParetoUCB+, ParetoUCB-Div, ParetoUCB-Crowd, ParetoTS(Faithful), ParetoTS+, ChebyshevUCB(M), ChebyshevUCB+, HVScalarUCB, HVScalarUCB+, ScalarUCB, ScalarUCB-RandW, RandomK
+    clusters: {
+      '0.01': [0.6556,0.4438,0.6286,0.5289,0.5022,0.4871,0.6293,0.4763,0.6284,0.4898,0.5728,0.6285,0.3794,0.2225],
+      '0.1':  [0.6515,0.4438,0.6303,0.6104,0.4031,0.4871,0.6293,0.4338,0.6285,0.4740,0.5692,0.6308,0.4025,0.2225],
+      '0.3':  [0.6458,0.4438,0.6324,0.6502,0.5706,0.4871,0.6293,0.4263,0.6286,0.4591,0.5675,0.6340,0.4277,0.2225],
+      '1.0':  [0.6242,0.4438,0.6330,0.6410,0.6384,0.4871,0.6293,0.4099,0.6282,0.4401,0.5513,0.6227,0.4536,0.2225]
+    },
+    concave: {
+      '0.01': [0.6638,0.4711,0.5461,0.6043,0.4479,0.5180,0.5788,0.5017,0.5452,0.5086,0.5863,0.5462,0.3813,0.2361],
+      '0.1':  [0.6565,0.4711,0.5558,0.6064,0.4561,0.5180,0.5788,0.4746,0.5457,0.4882,0.5772,0.5557,0.3963,0.2361],
+      '0.3':  [0.6498,0.4711,0.5647,0.6024,0.5341,0.5180,0.5788,0.4720,0.5472,0.4645,0.5684,0.5679,0.4239,0.2361],
+      '1.0':  [0.6324,0.4711,0.5770,0.5968,0.5712,0.5180,0.5788,0.4589,0.5514,0.4828,0.5317,0.5733,0.4734,0.2361]
+    },
+    convex: {
+      '0.01': [0.8536,0.7169,0.7416,0.8060,0.7498,0.7528,0.7836,0.6751,0.7409,0.6636,0.7489,0.7415,0.6686,0.3878],
+      '0.1':  [0.8502,0.7169,0.7561,0.8148,0.8042,0.7528,0.7836,0.6449,0.7416,0.6469,0.7515,0.7512,0.6885,0.3878],
+      '0.3':  [0.8471,0.7169,0.7452,0.8172,0.8216,0.7528,0.7836,0.6757,0.7452,0.6983,0.7647,0.7614,0.7159,0.3878],
+      '1.0':  [0.8329,0.7169,0.8170,0.8281,0.8290,0.7528,0.7836,0.7185,0.7527,0.7216,0.7560,0.7731,0.7347,0.3878]
+    },
+    linear: {
+      '0.01': [0.2879,0.1515,0.0572,0.2115,0.1233,0.1901,0.1623,0.2016,0.2248,0.2105,0.2463,0.0770,0.0471,0.0922],
+      '0.1':  [0.2796,0.1515,0.1391,0.2106,0.1260,0.1901,0.1623,0.1842,0.2262,0.1880,0.2366,0.1427,0.0613,0.0922],
+      '0.3':  [0.2586,0.1515,0.1549,0.1979,0.1303,0.1901,0.1623,0.1541,0.2266,0.1724,0.2265,0.1546,0.0690,0.0922],
+      '1.0':  [0.2179,0.1515,0.1620,0.1592,0.1252,0.1901,0.1623,0.1263,0.2218,0.1311,0.1651,0.1584,0.0733,0.0922]
+    }
+  },
+  3: {
+    // ordre: THV, ParetoUCB(DR), ParetoUCB+, ParetoUCB-Div, ParetoUCB-Crowd, ParetoTS(F), ParetoTS+, ChebyshevUCB(M), ChebyshevUCB+, HVScalarUCB, HVScalarUCB+, ScalarUCB, ScalarUCB-RandW, RandomK
+    clusters: {
+      '0.01': [0.2955,0.1577,0.2844,0.1881,0.0276,0.1708,0.2690,0.1296,0.2575,0.2046,0.2500,0.2807,0.1337,0.1035],
+      '0.1':  [0.2903,0.1577,0.2718,0.1844,0.0265,0.1708,0.2690,0.1188,0.2639,0.1910,0.2389,0.2718,0.1361,0.1035],
+      '0.3':  [0.2808,0.1577,0.2720,0.1891,0.0649,0.1708,0.2690,0.1086,0.2636,0.1799,0.2258,0.2712,0.1391,0.1035],
+      '1.0':  [0.2582,0.1577,0.2490,0.2083,0.1694,0.1708,0.2690,0.0976,0.2620,0.1580,0.1964,0.2407,0.1484,0.1035]
+    },
+    concave: {
+      '0.01': [0.2894,0.1757,0.2532,0.1951,0.1290,0.1883,0.2678,0.1968,0.2685,0.2294,0.2448,0.2507,0.1644,0.1110],
+      '0.1':  [0.2824,0.1757,0.2755,0.1951,0.0831,0.1883,0.2678,0.1821,0.2713,0.2170,0.2336,0.2757,0.1570,0.1110],
+      '0.3':  [0.2740,0.1757,0.2690,0.1988,0.0919,0.1883,0.2678,0.1722,0.2727,0.2037,0.2229,0.2695,0.1598,0.1110],
+      '1.0':  [0.2552,0.1757,0.2532,0.1979,0.1290,0.1883,0.2678,0.1640,0.2685,0.1850,0.2068,0.2507,0.1644,0.1110]
+    },
+    convex: {
+      '0.01': [0.5895,0.4648,0.5440,0.5109,0.3737,0.4836,0.5465,0.4274,0.5340,0.4526,0.4956,0.5393,0.4460,0.3151],
+      '0.1':  [0.5850,0.4648,0.5476,0.5101,0.3876,0.4836,0.5465,0.4180,0.5375,0.4424,0.4861,0.5472,0.4433,0.3151],
+      '0.3':  [0.5793,0.4648,0.5463,0.5161,0.4317,0.4836,0.5465,0.4210,0.5424,0.4397,0.4795,0.5460,0.4429,0.3151],
+      '1.0':  [0.5632,0.4648,0.5462,0.5142,0.4755,0.4836,0.5465,0.4322,0.5437,0.4372,0.4801,0.5442,0.4483,0.3151]
+    },
+    linear: {
+      '0.01': [0.1592,0.0610,0.0793,0.0512,0.0217,0.0743,0.0868,0.0980,0.1401,0.1252,0.1357,0.0721,0.0330,0.0403],
+      '0.1':  [0.1533,0.0610,0.0892,0.0698,0.0217,0.0743,0.0868,0.0820,0.1363,0.1095,0.1238,0.0891,0.0410,0.0403],
+      '0.3':  [0.1400,0.0610,0.0934,0.0786,0.0195,0.0743,0.0868,0.0694,0.1274,0.0954,0.1098,0.0861,0.0478,0.0403],
+      '1.0':  [0.1052,0.0610,0.0914,0.0649,0.0251,0.0743,0.0868,0.0619,0.1173,0.0757,0.0828,0.0793,0.0544,0.0403]
+    }
+  },
+  4: {
+    clusters: {
+      '0.01': [0.0854,0.0255,0.0791,0.0407,0.0014,0.0302,0.0793,0.0211,0.0800,0.0384,0.0458,0.0791,0.0353,0.0168],
+      '0.1':  [0.0824,0.0255,0.0778,0.0336,0.0020,0.0302,null,  0.0211,0.0789,0.0384,0.0639,0.0777,0.0343,null],
+      '0.3':  [0.0779,0.0255,0.0745,0.0340,0.0053,0.0302,null,  0.0211,0.0768,0.0384,0.0576,0.0747,0.0340,null],
+      '1.0':  [0.0642,0.0255,0.0608,0.0342,0.0109,0.0302,null,  0.0211,0.0711,0.0384,0.0458,0.0587,0.0331,null]
+    },
+    concave: {
+      '0.01': [0.1051,0.0390,0.0939,0.0492,0.0028,0.0468,0.0940,0.0556,0.0989,0.0539,0.0852,0.0939,0.0444,0.0255],
+      '0.1':  [0.1021,0.0390,0.0947,0.0441,0.0075,0.0468,null,  0.0556,0.0985,0.0539,0.0799,0.0946,0.0435,null],
+      '0.3':  [0.0963,0.0390,0.0907,0.0422,0.0064,0.0468,null,  0.0556,0.0963,0.0539,0.0744,0.0905,0.0434,null],
+      '1.0':  [0.0820,0.0390,0.0794,0.0348,0.0157,0.0468,null,  0.0450,0.0915,0.0539,0.0645,0.0784,0.0433,null]
+    },
+    convex: {
+      '0.01': [0.3709,0.2369,0.3311,0.2564,0.0712,0.2456,0.3315,0.2349,0.3481,0.2510,0.3041,0.3312,0.2597,0.1529],
+      '0.1':  [0.3644,0.2369,0.3351,0.2517,0.1252,0.2456,null,  0.2349,0.3500,0.2510,0.2975,0.3350,0.2551,null],
+      '0.3':  [0.3574,0.2369,0.3384,0.2524,0.1462,0.2456,null,  0.2349,0.3503,0.2510,0.2906,0.3379,0.2517,null],
+      '1.0':  [0.3413,0.2369,0.3335,0.2549,0.2388,0.2456,null,  0.2349,0.3452,0.2510,0.2712,0.3325,0.2493,null]
+    },
+    linear: {
+      '0.01': [0.0677,0.0129,0.0328,0.0169,0.0025,0.0218,0.0151,0.0279,0.0510,0.0238,0.0532,0.0308,0.0183,0.0098],
+      '0.1':  [0.0657,0.0129,0.0395,0.0194,0.0008,0.0218,null,  0.0279,0.0495,0.0238,0.0456,0.0386,0.0194,null],
+      '0.3':  [0.0605,0.0129,0.0403,0.0199,0.0010,0.0218,null,  0.0233,0.0499,0.0290,0.0393,0.0381,0.0203,null],
+      '1.0':  [0.0431,0.0129,0.0369,0.0166,0.0026,0.0218,null,  0.0222,0.0325,0.0238,0.0317,0.0323,0.0206,null]
+    }
+  },
+  5: {
+    // ordre: THV, ParetoUCB(DR), ParetoUCB+, ParetoUCB-Div, ParetoUCB-Crowd, ParetoTS(F), ParetoTS+, ChebyshevUCB(M), ChebyshevUCB+, HVScalarUCB, HVScalarUCB+, ScalarUCB, ScalarUCB-RandW, RandomK
+    clusters: {
+      '0.01': [0.0266,0.0042,0.0254,0.0141,0.0024,0.0057,0.0234,0.0033,0.0208,0.0194,0.0218,0.0254,0.0103,0.0028],
+      '0.1':  [0.0256,0.0042,0.0245,0.0101,0.0018,0.0057,0.0234,0.0023,0.0202,0.0159,0.0190,0.0245,0.0095,0.0028],
+      '0.3':  [0.0239,0.0042,0.0225,0.0067,0.0023,0.0057,0.0234,0.0019,0.0200,0.0128,0.0157,0.0227,0.0089,0.0028],
+      '1.0':  [0.0160,0.0042,0.0151,0.0044,0.0025,0.0057,0.0234,0.0018,0.0194,0.0088,0.0113,0.0147,0.0079,0.0028]
+    },
+    concave: {
+      '0.01': [0.0202,0.0032,0.0197,0.0094,0.0009,0.0046,0.0173,0.0092,0.0150,0.0123,0.0151,0.0197,0.0077,0.0026],
+      '0.1':  [0.0189,0.0032,0.0180,0.0066,0.0007,0.0046,0.0173,0.0088,0.0111,0.0101,0.0127,0.0181,0.0071,0.0026],
+      '0.3':  [0.0170,0.0032,0.0166,0.0053,0.0010,0.0046,0.0173,0.0085,0.0100,0.0082,0.0106,0.0166,0.0067,0.0026],
+      '1.0':  [0.0112,0.0032,0.0103,0.0049,0.0015,0.0046,0.0173,0.0086,0.0067,0.0067,0.0080,0.0101,0.0061,0.0026]
+    },
+    convex: {
+      '0.01': [0.1841,0.0774,0.1789,0.1104,0.0447,0.0853,0.1716,0.0983,0.1729,0.1334,0.1434,0.1790,0.1222,0.0473],
+      '0.1':  [0.1802,0.0774,0.1737,0.1128,0.0521,0.0853,0.1716,0.0951,0.1737,0.1256,0.1369,0.1743,0.1169,0.0473],
+      '0.3':  [0.1711,0.0774,0.1690,0.1132,0.0522,0.0853,0.1716,0.0927,0.1731,0.1163,0.1295,0.1691,0.1129,0.0473],
+      '1.0':  [0.1558,0.0774,0.1585,0.1144,0.0779,0.0853,0.1716,0.0915,0.1551,0.1048,0.1150,0.1562,0.1066,0.0473]
+    },
+    linear: {
+      '0.01': [0.0095,0.0010,0.0047,0.0017,0.0007,0.0016,0.0050,0.0047,0.0013,0.0029,0.0053,0.0049,0.0027,0.0008],
+      '0.1':  [0.0085,0.0010,0.0051,0.0020,0.0008,0.0016,0.0050,0.0046,0.0014,0.0026,0.0044,0.0049,0.0027,0.0008],
+      '0.3':  [0.0078,0.0010,0.0050,0.0017,0.0010,0.0016,0.0050,0.0046,0.0016,0.0024,0.0037,0.0044,0.0026,0.0008],
+      '1.0':  [0.0043,0.0010,0.0042,0.0018,0.0015,0.0016,0.0050,0.0047,0.0013,0.0022,0.0031,0.0033,0.0025,0.0008]
+    }
+  }
+};
+
+const CONFIGS = {
+  2: 'n=36, k=3, σ=0.05, ε=0.05, T=2000',
+  3: 'n=60, k=4, σ=0.035, ε=0.1, T=3000 — complet',
+  4: 'n=100, k=5, σ=0.025, ε=0.15, T=5000 — complet',
+  5: 'n=150, k=6, σ=0.02, ε=0.2, T=5000 — complet',
+};
+
+const ALGOS = { 2: ALGOS_D2, 3: ALGOS_D3, 4: ALGOS_D4, 5: ALGOS_D5 };
+
+let curD = 2, curFront = 'clusters';
+
+function setD(d, btn) {
+  curD = d;
+  document.querySelectorAll('.ctrl-group')[0].querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+function setFront(f, btn) {
+  curFront = f;
+  document.querySelectorAll('#front-btns button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function fmt(v) {
+  if (v === null || v === undefined) return '<span class="na">—</span>';
+  return v.toFixed(4);
+}
+
+// Algos sans eta : valeur identique quelle que soit la colonne
+const NO_ETA = new Set(['ParetoUCB','ParetoTS','ParetoTS+','RandomK']);
+
+function render() {
+  const algos = ALGOS[curD];
+  const frontData = DATA[curD][curFront];
+  const table = document.getElementById('main-table');
+
+  // Find best per eta column (en excluant les algos sans eta du calcul de best)
+  const colBest = {};
+  const colSecond = {};
+  ETAS.forEach(eta => {
+    const row = frontData[eta];
+    if (!row) return;
+    const vals = row.filter((v, ai) => v !== null && !NO_ETA.has(algos[ai]));
+    const sorted = [...vals].sort((a,b) => b-a);
+    colBest[eta] = sorted[0];
+    colSecond[eta] = sorted[1];
+  });
+
+  let html = '<thead><tr>';
+  html += '<th class="algo-col">algorithme</th>';
+  ETAS.forEach(eta => {
+    const row = frontData[eta];
+    html += `<th class="eta-hdr">${row ? 'η = ' + eta : '<span class="na">η = ' + eta + '</span>'}</th>`;
+  });
+  html += '</tr></thead><tbody>';
+
+  algos.forEach((algo, ai) => {
+    const isThv = algo === 'THV-UCB';
+    const noEta = NO_ETA.has(algo);
+    html += `<tr class="${isThv ? 'thv' : ''}">`;
+    html += `<td class="algo-col">${algo}${noEta ? ' <span style="font-size:10px;color:#aaa">(η=—)</span>' : ''}</td>`;
+
+    // Pour les algos sans eta : trouver la première colonne disponible pour afficher la valeur
+    let shownNoEta = false;
+    ETAS.forEach(eta => {
+      const row = frontData[eta];
+      if (!row) { html += '<td class="na">—</td>'; return; }
+      const v = row[ai];
+      if (v === null || v === undefined) { html += '<td class="na">—</td>'; return; }
+
+      if (noEta) {
+        if (!shownNoEta) {
+          // Afficher la valeur une seule fois, sans couleur de classement
+          html += `<td style="color:#888">${v.toFixed(4)}</td>`;
+          shownNoEta = true;
+        } else {
+          html += '<td class="na">—</td>';
+        }
+        return;
+      }
+
+      const best = colBest[eta];
+      const second = colSecond[eta];
+      let cls = '';
+      if (v === best) cls = 'best';
+      else if (v === second) cls = 'second';
+      if (isThv && v !== best) cls = 'lose';
+      html += `<td class="${cls}">${v.toFixed(4)}</td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += '</tbody>';
+  table.innerHTML = html;
+  document.getElementById('config-note').textContent =
+    `d=${curD}, front=${curFront} — ${CONFIGS[curD]} — Gras = meilleur parmi les algos avec η · rouge = THV-UCB non premier`;
+}
+
+render();
+</script>
+
+
+</body></html>
