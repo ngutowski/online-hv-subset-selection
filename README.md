@@ -90,18 +90,18 @@ Coordinate-wise UCB boxes + safe pruning (LCB/UCB dominance) + greedy selection 
 
 | Class in `model.py` | Paper name | Fidelity | Reference |
 |---|---|---|---|
-| `ParetoUCB_TopK_DR` | ParetoUCB | • faithful | [6] Drugan & Nowé, IJCNN 2013 |
-| `ParetoUCB_TopK` | ParetoUCB+ | ◦ extension | [6] Drugan & Nowé, IJCNN 2013 |
-| `ParetoUCB_DiverseTopK` | ParetoUCB-Div | ◦ extension | [6] Drugan & Nowé, IJCNN 2013 |
-| `ParetoUCB_CrowdingTopK` | ParetoUCB-Crowd | ◦ extension | [6, 5] Drugan & Nowé + Deb et al., 2002 |
-| `ParetoTS_Faithful_TopK` | ParetoTS | • faithful | [34] Yahyaa & Manderick, ESANN 2015 |
-| `ParetoTSPlus_TopK` | ParetoTS+ | ◦ extension | [34] Yahyaa & Manderick, ESANN 2015 |
-| `ChebyshevUCB_Mandow` | ChebyshevUCB | • faithful | [18] Mandow et al., MODeM@ECAI 2023 |
-| `ChebyshevUCB` | ChebyshevUCB+ | ◦ extension | [18] Mandow et al., MODeM@ECAI 2023 |
-| `HVScalarUCB` | HVScalarUCB | • faithful | [37] Zhang & Golovin, ICML 2020 |
-| `HVScalarUCB_Zhang2024` | HVScalarUCB+ | • faithful | [36] Zhang, NeurIPS 2024 |
-| `ScalarUCB` | ScalarUCB | ◦ extension | [2] Auer et al., 2002 |
-| `ScalarUCB_RandW` | ScalarUCB-RandW | ◦ extension | [22] Paria et al., UAI 2020 |
+| `ParetoUCB_TopK_DR` | ParetoUCB | • faithful | Drugan & Nowé, IJCNN 2013 (See our paper for details) |
+| `ParetoUCB_TopK` | ParetoUCB+ | ◦ extension | Drugan & Nowé, IJCNN 2013 (See our paper for details)  |
+| `ParetoUCB_DiverseTopK` | ParetoUCB-Div | ◦ extension | Drugan & Nowé, IJCNN 2013 (See our paper for details) |
+| `ParetoUCB_CrowdingTopK` | ParetoUCB-Crowd | ◦ extension | Drugan & Nowé + Deb et al., 2002 (See our paper for details) |
+| `ParetoTS_Faithful_TopK` | ParetoTS | • faithful | Yahyaa & Manderick, ESANN 2015 (See our paper for details)  |
+| `ParetoTSPlus_TopK` | ParetoTS+ | ◦ extension | Yahyaa & Manderick, ESANN 2015 (See our paper for details) |
+| `ChebyshevUCB_Mandow` | ChebyshevUCB | • faithful | Mandow et al., MODeM@ECAI 2023 (See our paper for details) |
+| `ChebyshevUCB` | ChebyshevUCB+ | ◦ extension | Mandow et al., MODeM@ECAI 2023 (See our paper for details) |
+| `HVScalarUCB` | HVScalarUCB | • faithful | Zhang & Golovin, ICML 2020 (See our paper for details) |
+| `HVScalarUCB_Zhang2024` | HVScalarUCB+ | • faithful | Zhang, NeurIPS 2024 (See our paper for details) |
+| `ScalarUCB` | ScalarUCB | ◦ extension | Auer et al., 2002 (See our paper for details) |
+| `ScalarUCB_RandW` | ScalarUCB-RandW | ◦ extension | Paria et al., UAI 2020 (See our paper for details)  |
 | `RandomK` | RandomK | - | - |
 
 **Fidelity:** • = faithful top-k adaptation (core mechanism unchanged); ◦ = our extension (modified confidence term, tie-break, or diversity mechanism).
