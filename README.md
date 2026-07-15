@@ -46,7 +46,7 @@ python exec.py <front> <d> <n> <n_front> <k> <sigma> <eps> <T> <eta>
 | `n_front` | Number of arms on the Pareto front |
 | `k` | Slate size |
 | `sigma` | Observation noise (Gaussian) |
-| `eps` | ε-covering tolerance |
+| `eps` | legacy parameter, unused (kept for CLI compatibility) |
 | `T` | Horizon (number of rounds) |
 | `eta` | Confidence parameter η (grid-searched over {0.01, 0.1, 0.3, 1.0}) |
 
