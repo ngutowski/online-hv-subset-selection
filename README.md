@@ -111,7 +111,7 @@ Coordinate-wise UCB boxes + safe pruning (LCB/UCB dominance) + greedy selection 
 
 ## Theoritical aspects 
 Full proofs (Theorems, Fact, Lemmas, Corollary) are available in
-[Full proofs](./proof.pdf).
+[Full proofs](./proofs.pdf).
 
 
 ## Results
