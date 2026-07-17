@@ -121,21 +121,22 @@ are available in `results/` (raw `.pkl`) and `figures/` (plots).
 All grid search results (optimal η per algorithm/geometry) can be
 consulted at: [grid search results](https://red-rice-77b0.mabrsstudy.workers.dev/)
 and are summarized below:
+<br><br>
 ![Grid Search](figures/gridsearch.png)
-
-### d=2
+<br><br>
+### Two objectives (d=2, k=3)
 ![HV trajectories, d=2](figures/HV_d2.png)
 ![Regret, d=2](figures/Regret_d2.png)
-
-### d=3
+<br>
+### Three objectives (d=3, k=4)
 ![HV trajectories, d=3](figures/HV_d3.png)
 ![Regret, d=3](figures/Regret_d3.png)
-
-### d=4
+<br><br>
+### Four objectives (d=4, k=5)
 ![HV trajectories, d=4](figures/HV_d4.png)
 ![Regret, d=4](figures/Regret_d4.png)
-
-### d=5
+<br><br>
+### Five objectives (d=5, k=6)
 ![HV trajectories, d=5](figures/HV_d5.png)
 ![Regret, d=5](figures/Regret_d5.png)
 
