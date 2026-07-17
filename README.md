@@ -94,8 +94,8 @@ Coordinate-wise UCB boxes + safe pruning (LCB/UCB dominance) + greedy selection 
 | `ParetoUCB_TopK` | ParetoUCB+ | ◦ extension | Drugan & Nowé, IJCNN 2013 (See our paper for details)  |
 | `ParetoUCB_DiverseTopK` | ParetoUCB-Div | ◦ extension | Drugan & Nowé, IJCNN 2013 (See our paper for details) |
 | `ParetoUCB_CrowdingTopK` | ParetoUCB-Crowd | ◦ extension | Drugan & Nowé + Deb et al., 2002 (See our paper for details) |
-| `ParetoTS_Faithful_TopK` | ParetoTS | • faithful | Yahyaa & Manderick, ESANN 2015 (See our paper for details)  |
-| `ParetoTSPlus_TopK` | ParetoTS+ | ◦ extension | Yahyaa & Manderick, ESANN 2015 (See our paper for details) |
+| `ParetoTS_Faithful_TopK` | ParetoTS | • faithful | Roijers, Zintgraf, and Nowé, ADT 2017 (See our paper for details) |
+| `ParetoTSPlus_TopK` | ParetoTS+ | ◦ extension | Roijers, Zintgraf, and Nowé, ADT 2017 (See our paper for details) |
 | `ChebyshevUCB_Mandow` | ChebyshevUCB | • faithful | Mandow et al., MODeM@ECAI 2023 (See our paper for details) |
 | `ChebyshevUCB` | ChebyshevUCB+ | ◦ extension | Mandow et al., MODeM@ECAI 2023 (See our paper for details) |
 | `HVScalarUCB` | HVScalarUCB | • faithful | Zhang & Golovin, ICML 2020 (See our paper for details) |
