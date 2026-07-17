@@ -108,11 +108,13 @@ Coordinate-wise UCB boxes + safe pruning (LCB/UCB dominance) + greedy selection 
 
 **Fidelity:** • = faithful top-k adaptation (core mechanism unchanged); ◦ = our extension (modified confidence term, tie-break, or diversity mechanism).
 
+---
 
 ## Theoritical aspects 
 Full proofs (Theorems, Fact, Lemmas, Corollary) are available in
 [Full proofs](./proofs.pdf).
 
+---
 
 ## Results
 Full results for all dimensions (d ∈ {2, 3, 4, 5}) and front geometries
@@ -123,19 +125,27 @@ consulted at: [grid search results](https://red-rice-77b0.mabrsstudy.workers.dev
 and are summarized below:
 <br><br>
 ![Grid Search](figures/gridsearch.png)
-<br><br>
+
+---
+
 ### Two objectives (d=2, k=3)
 ![HV trajectories, d=2](figures/HV_d2.png)
 ![Regret, d=2](figures/Regret_d2.png)
-<br>
+
+---
+
 ### Three objectives (d=3, k=4)
 ![HV trajectories, d=3](figures/HV_d3.png)
 ![Regret, d=3](figures/Regret_d3.png)
-<br><br>
+
+---
+
 ### Four objectives (d=4, k=5)
 ![HV trajectories, d=4](figures/HV_d4.png)
 ![Regret, d=4](figures/Regret_d4.png)
-<br><br>
+
+---
+
 ### Five objectives (d=5, k=6)
 ![HV trajectories, d=5](figures/HV_d5.png)
 ![Regret, d=5](figures/Regret_d5.png)
