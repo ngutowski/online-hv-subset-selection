@@ -236,7 +236,7 @@ class RandomK:
 
 class ScalarUCB:
     """
-	ScalarUCB – our extension of Auer et al. (Machine Learning 2002) [2] to top-k.
+	ScalarUCB – our extension of Auer et al. (Machine Learning 2002) to top-k.
 	- Fixed uniform linear scalarization: w = 1/d
 	- Scalar UCB index: mu_hat_i + beta_i, with beta_i = sqrt(η * log(n * T²) / (2 * N_i))
 	- Select top-k arms by scalar UCB index.
@@ -276,7 +276,7 @@ class ScalarUCB:
 
 class ScalarUCB_RandW:
     """
-	ScalarUCB-RandW – our extension of Paria et al. (UAI 2020) [22] to top-k.
+	ScalarUCB-RandW – our extension of Paria et al. (UAI 2020) to top-k.
 	- Fresh weight vector w ~ Dirichlet(1) drawn each round
 	- Compute UCB vectors U_i = mu_hat_i + beta_i * 1 coordinate-wise
 	- Select top-k arms by score w^T U_i.
@@ -406,7 +406,7 @@ class ParetoUCB_TopK_DR:
 
 class HVScalarUCB_Zhang2024:
     """
-	  HVScalarUCB+ – our top-k extension of Zhang (NeurIPS 2024) [36].
+	  HVScalarUCB+ – our top-k extension of Zhang (NeurIPS 2024).
 
 	Fidelity to the original paper:
 	- Scalarization: s_λ(y) = min_i(y_i / λ_i)  (Section 5, practical version)
@@ -1113,7 +1113,7 @@ class ParetoUCB_CrowdingTopK(ParetoUCB_TopK):
 
 class ChebyshevUCB:
     """
-	   ChebyshevUCB+ – our extension of Mandow et al. (MODeM@ECAI 2023) [18].
+	   ChebyshevUCB+ – our extension of Mandow et al. (MODeM@ECAI 2023).
 	- Fixed uniform weight w = 1/d instead of random draw each round
 	- Standard UCB bonus: beta_i = sqrt(η * log(n^d * T²) / (2 * N_i))
 	- Score: f(U_i) = min_j { w_j * (U[i,j] - z_j) } with z estimated nadir point
@@ -1168,7 +1168,7 @@ class ChebyshevUCB:
             
 class HVScalarUCB:
     """
-	   HVScalarUCB – faithful top-k adaptation of Zhang & Golovin (ICML 2020) [37].
+	   HVScalarUCB – faithful top-k adaptation of Zhang & Golovin (ICML 2020).
 
 	Fidelity to the original paper:
 	- Hypervolume scalarization: s_λ(y) = min_i ( max(0, y_i / λ_i) )^d
