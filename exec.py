@@ -14,7 +14,7 @@ Parameters:
     n_front  : number of arms on the Pareto front
     k        : slate size
     sigma    : observation noise
-    eps      : covering tolerance
+    eps      : legacy CLI parameter, originally a safety margin for an ε-cover formulation of the benchmark
     T        : horizon
     eta      : eta value
 """
