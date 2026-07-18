@@ -352,7 +352,7 @@ class ParetoUCB_TopK_DR:
             idx = np.argsort(self.counts)[:self.k]
             return idx.tolist()
 
-        # UNE SEULE fois par round
+        # Only once per round
         front_size = max(1, len(pareto_front_indices(self.means)))
 
         U = np.empty_like(self.means)
@@ -360,7 +360,7 @@ class ParetoUCB_TopK_DR:
             b = self.beta(i, front_size)
             U[i] = self.means[i] + b
 
-        # reste inchangé...
+        
 	# Fill k slots by successive Pareto layers, uniform random within each
         chosen = []
         remaining = list(range(self.n))
@@ -458,13 +458,13 @@ class HVScalarUCB_Zhang2024:
             idx = np.argsort(self.counts)[:self.k]
             return idx.tolist()
 
-        # Vecteurs UCB : bonus sur le vecteur avant scalarisation
+        # UCB vectors: add the bonus to the reward vector before scalarization.
         U = np.empty_like(self.means)
         for i in range(self.n):
             b = self.beta(i)
             U[i] = np.clip(self.means[i] + b, 0.0, 1.0)
 
-        # k λ distincts → k directions distinctes du front Pareto
+        # k distinct λ's → k distinct directions on the Pareto frontier.
         chosen = []
         for _ in range(self.k):
             lam = self._sample_lambda()
@@ -472,7 +472,7 @@ class HVScalarUCB_Zhang2024:
                 self._hv_scalarization(U[i], lam)
                 for i in range(self.n)
             ])
-            # Exclure les bras déjà sélectionnés
+            # Exclude already selected arms.
             for j in chosen:
                 scores[j] = -np.inf
             best = int(np.argmax(scores))
@@ -675,12 +675,12 @@ class ChebyshevUCB_Mandow:
         self.min_pulls = int(min_pulls)
         self.rng = np.random.default_rng(seed)
 
-        # S fonctions de scalarisation : poids spread uniforme sur le simplexe
-        # Pour d=2 : (1,0),(0.9,0.1),...,(0,1) — généralisé à d dimensions
+        # S scalarization functions: weights are uniformly spread over the simplex.
+        # For d=2: (1,0),(0.9,0.1),…,(0,1), generalized to d dimensions.
         self.weights = self._make_weights(d, n_scal)  # (S, d)
         self.S = len(self.weights)
 
-        # Estimations partagées (C2 : une seule moyenne par bras, pas S)
+        # Shared estimates (C2: a single mean estimate per arm, not per scalarization function S).
         self.counts = np.zeros(n, dtype=int)
         self.means = np.zeros((n, d), dtype=float)
         self._logterm_base = math.log(max(1, T))  # log t approché par log T
@@ -696,11 +696,11 @@ class ChebyshevUCB_Mandow:
             alphas = np.linspace(0.0, 1.0, n_scal)
             return np.column_stack([1.0 - alphas, alphas])
         else:
-            # Pour d>2 : simplex uniform grid (récursif, approximatif)
+            # For d>2: a uniform simplex grid (recursive, approximate).
             from itertools import combinations_with_replacement
             step = 1.0 / (n_scal - 1) if n_scal > 1 else 1.0
             pts = []
-            # grille sur le simplexe : toutes les combinaisons sommant à 1
+            # Simplex grid: all weight combinations whose components sum to 1.
             n_div = n_scal - 1
             for combo in combinations_with_replacement(range(n_div + 1), d - 1):
                 breaks = [0] + list(combo) + [n_div]
@@ -713,7 +713,7 @@ class ChebyshevUCB_Mandow:
 
     def beta(self, i: int, t: int) -> float:
         denom = max(1, int(self.counts[i]))
-        # log(t) comme dans UCB1 original de Mandow (pas log(ndT²))
+        # log(t) as in original UCB1 of Mandow (no log(ndT²))
         logterm = math.log(max(1, t))
         return math.sqrt(self.eta * 2.0 * logterm / denom)
 
@@ -731,28 +731,28 @@ class ChebyshevUCB_Mandow:
         return z
 
     def select(self, t: int) -> List[int]:
-        # Exploration forcée initiale
+        # Initial forced exploration.
         if self.min_pulls > 0 and np.any(self.counts < self.min_pulls):
             idx = np.argsort(self.counts)[:self.k]
             return idx.tolist()
 
-        # Vecteurs UCB : bonus ajouté au vecteur AVANT scalarisation (C2)
+        # UCB vectors: the bonus is added to the reward vector before scalarization (C2).
         U = np.empty_like(self.means)
         for i in range(self.n):
             b = self.beta(i, t)
             U[i] = np.clip(self.means[i] + b, 0.0, 1.0)
 
-        # Point nadir estimé
+        # Estimated nadir point.
         z = self._nadir()
 
-        # Tirage aléatoire d'une fonction de scalarisation (comme dans C0/C1/C2)
+        # Randomly sample a scalarization function (as in C0/C1/C2)
         j = self.rng.integers(0, self.S)
         w = self.weights[j]  # (d,)
 
         # Score C2 : f^j(U_i) = min_d { w_d * (U[i,d] - z_d) }
         scores = np.min((U - z[None, :]) * w[None, :], axis=1)  # (n,)
 
-        # Top-k par score
+        # Select the top-k arms according to their scores. 
         idx = np.argsort(-scores)[:self.k]
         return idx.tolist()
 
@@ -900,8 +900,8 @@ class ParetoTS_TopK:
             idx = np.argsort(self.counts)[:self.k]
             return idx.tolist()
 
-        # posterior std conjugué gaussien : sigma_obs / sqrt(N)
-        # pour les bras non encore tirés (N=0), on utilise prior_var comme fallback
+        # Conjugate Gaussian posterior standard deviation : sigma_obs / sqrt(N)
+        # For arms that have not yet been pulled (N=0), use prior_var as a fallback.
         std = np.zeros(self.n, dtype=float)
         for i in range(self.n):
             n_i = int(self.counts[i])
@@ -988,7 +988,7 @@ class ParetoTS_Faithful_TopK:
             idx = np.argsort(self.counts)[:self.k]
             return idx.tolist()
 
-        # Posterior gaussien conjugué
+        # Conjugate Gaussian posterior
         std = np.zeros(self.n, dtype=float)
         for i in range(self.n):
             n_i = int(self.counts[i])
@@ -1003,7 +1003,7 @@ class ParetoTS_Faithful_TopK:
 
         layers = self._pareto_layers(theta)
 
-        # Sélection UNIFORME dans chaque couche (Y&M Step 8, Fig. 1)
+        # Uniform sampling within each layer (Y&M Step 8, Fig. 1)
         chosen = []
         for layer in layers:
             if len(chosen) >= self.k:
@@ -1193,7 +1193,7 @@ class HVScalarUCB:
         self.min_pulls = int(min_pulls)
         self.rng = np.random.default_rng(seed)
 
-        # point de référence (z dans le papier)
+        # Reference point
         self.ref = np.zeros(d, dtype=float) if ref is None else np.asarray(ref, float)
 
         self.counts = np.zeros(n, dtype=int)
@@ -1238,7 +1238,7 @@ class HVScalarUCB:
             b = self.beta(i)
             U[i] = np.clip(self.means[i] + b, 0.0, 1.0)
 
-        # Tirage λ ~ S^{d-1}_+
+        # Sample λ ~ S^{d-1}_+
         lam = self._sample_lambda()
 
         # Hypervolume score for each arm
@@ -1298,10 +1298,10 @@ class THV_UCB_Practical:
             L[i] = self.means[i] - b
 
         # safe pruning: vectorized — U[i] dominated by some L[j] componentwise
-        # dom_matrix[j, i] = True si L[j] >= U[i] pour tous les objectifs
+        # dom_matrix[j, i] = True si L[j] >= U[i] for all objectives.
         dom_matrix = np.all(L[:, None, :] >= U[None, :, :], axis=2)  # (n, n)
         np.fill_diagonal(dom_matrix, False)
-        dominated = dom_matrix.any(axis=0)  # arm i dominé par au moins un j
+        dominated = dom_matrix.any(axis=0)  # Arm i is dominated by at least one arm j
         active = np.where(~dominated)[0].tolist()
         if len(active) < self.k:
             active = list(range(self.n))
