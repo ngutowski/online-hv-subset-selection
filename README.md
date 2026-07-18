@@ -130,23 +130,39 @@ and are summarized below:
 
 ### Two objectives (d=2, k=3)
 ![HV trajectories, d=2](figures/HV_d2.png)
+This Figure summarizes over four synthetic fronts (_d=2, n=36, k=3, σ=0.05, T=2000, 10 seeds_).
+**Fid.** indicates fidelity to the cited work: • = faithful top-k adaptation (core mechanism unchanged); ◦ = our extension (modified core, tie-break, or diversity mechanism not in the original). + denotes our variant when both versions share a citation. Final Regret values are cumulative α-regret +/- 95\% CI.
+<br><br>
+
 ![Regret, d=2](figures/Regret_d2.png)
 
 ---
 
 ### Three objectives (d=3, k=4)
 ![HV trajectories, d=3](figures/HV_d3.png)
+This Figure summarizes over four synthetic fronts (_d=3, n=60, k=4, σ=0.035, T=3000, 10 seeds_).
+**Fid.** indicates fidelity to the cited work: • = faithful top-k adaptation (core mechanism unchanged); ◦ = our extension (modified core, tie-break, or diversity mechanism not in the original). + denotes our variant when both versions share a citation. Final Regret values are cumulative α-regret +/- 95\% CI.
+<br><br>
+
 ![Regret, d=3](figures/Regret_d3.png)
 
 ---
 
 ### Four objectives (d=4, k=5)
 ![HV trajectories, d=4](figures/HV_d4.png)
+This Figure summarizes over four synthetic fronts (_d=4, n=100, k=5, σ=0.025, T=5000, 10 seeds_).
+**Fid.** indicates fidelity to the cited work: • = faithful top-k adaptation (core mechanism unchanged); ◦ = our extension (modified core, tie-break, or diversity mechanism not in the original). + denotes our variant when both versions share a citation. Final Regret values are cumulative α-regret +/- 95\% CI.
+<br><br>
+
 ![Regret, d=4](figures/Regret_d4.png)
 
 ---
 
 ### Five objectives (d=5, k=6)
 ![HV trajectories, d=5](figures/HV_d5.png)
+This Figure summarizes over four synthetic fronts (_d=5, n=150, k=6, σ=0.02, T=5000, 10 seeds_).
+**Fid.** indicates fidelity to the cited work: • = faithful top-k adaptation (core mechanism unchanged); ◦ = our extension (modified core, tie-break, or diversity mechanism not in the original). + denotes our variant when both versions share a citation. Final Regret values are cumulative α-regret +/- 95\% CI.
+<br><br>
+
 ![Regret, d=5](figures/Regret_d5.png)
 
