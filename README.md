@@ -79,7 +79,7 @@ python exec.py clusters 5 150 70 6 0.02 0.2 5000 0.01
 
 All results are averaged over 10 random seeds. η is selected per algorithm and front geometry via grid search.
 
-**Note on ε:** legacy CLI parameter, originally a safety margin for the synthetic environment generation; unused in the final algorithms and never triggers any code path, since this edge case never occurs in practice. Values are recorded above for reproducibility of the exact commands used, but have no effect on the reported results.
+**Note on ε:** legacy CLI parameter, originally a safety margin for an ε-cover formulation of the benchmark. On all tested configurations, this constraint is never satisfiable by any size-k subset, so the code always falls back to the unconstrained hypervolume-maximizing benchmark described in the paper (Problem Setting, Eq. 2) — regardless of the ε value passed. Values are recorded above for reproducibility of the exact commands used, but have no effect on the reported results.
 
 ---
 
