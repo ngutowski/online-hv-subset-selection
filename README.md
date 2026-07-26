@@ -60,11 +60,11 @@ python exec.py concave 2 36 12 3 0.05 0.05 2000 0.01
 python exec.py clusters 5 150 70 6 0.02 0.2 5000 0.01
 ```
 
-**Outputs** (saved in `results/`):
+**Outputs** (saved in `results/` and `figures/`):
 - `results_{tag}.pkl` - full results dict (pickle)
-- `summary_{tag}_eta{eta}.txt` - HV_last100 ± CI and cumulative α-regret ± CI for all algorithms
-- `Regret_{tag}.pdf` - cumulative α-regret curves
-- `HV_{tag}.pdf` - hypervolume trajectory (moving average, w=50)
+- `Regret_{tag}.png` - Final regret and hypervolume (last 100 trials) 
+- `HV_{tag}.png` - hypervolume trajectory (moving average, w=50)
+- `gridsearch.png` - grid search (optimal η* per algorithm/geometry) summary
 
 ---
 
