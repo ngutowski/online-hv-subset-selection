@@ -110,19 +110,11 @@ Coordinate-wise UCB boxes + safe pruning (LCB/UCB dominance) + greedy selection 
 
 ---
 
-## Theoritical aspects 
-Full proofs (Theorems, Fact, Lemmas, Corollary) are available in
-[Full proofs](./proofs.pdf).
-
----
-
 ## Results
 Full results for all dimensions (d ∈ {2, 3, 4, 5}) and front geometries
 are available in `results/` (raw `.pkl`) and `figures/` (plots).
 
-All grid search results (optimal η per algorithm/geometry) can be
-consulted at: [grid search results](https://red-rice-77b0.mabrsstudy.workers.dev/)
-and are summarized below:
+All grid search results (optimal η* per algorithm/geometry) will be published in a separate web page after AAAI reviews. They are summarized below: 
 <br><br>
 ![Grid Search](figures/gridsearch.png)
 
