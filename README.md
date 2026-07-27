@@ -120,7 +120,7 @@ Full proofs (Theorems, Fact, Lemmas, Corollary) are available in
 Full results for all dimensions (d ∈ {2, 3, 4, 5}) and front geometries
 are available in `results/` (raw `.pkl`) and `figures/` (plots).
 
-All grid search results (optimal η* per algorithm/geometry) will be published in a separate web page after AAAI reviews. They are summarized below: 
+All grid search results (optimal η* per algorithm/geometry) are available [here](https://ngutowski.fr/gridsearch/gridsearch.html). They are summarized below: 
 <br><br>
 ![Grid Search](figures/gridsearch.png)
 
