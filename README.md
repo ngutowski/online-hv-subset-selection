@@ -1,6 +1,6 @@
 # Top-k Pareto Bandits: Hypervolume Regret for Multi-Objective Slate Selection
 
-Code for the paper *"Top-k Pareto Bandits: Hypervolume Regret for Multi-Objective Slate Selection"*, submitted to AAAI 2027.
+Code for the paper *"Top-k Pareto Bandits: Hypervolume Regret for Multi-Objective Slate Selection"*.
 
 ---
 
@@ -107,6 +107,12 @@ Coordinate-wise UCB boxes + safe pruning (LCB/UCB dominance) + greedy selection 
 | `RandomK` | RandomK | - | - |
 
 **Fidelity:** • = faithful top-k adaptation (core mechanism unchanged); ◦ = our extension (modified confidence term, tie-break, or diversity mechanism).
+
+---
+
+## Theoritical aspects 
+Full proofs (Theorems, Fact, Lemmas, Corollary) are available in
+[Full proofs](./proofs.pdf).
 
 ---
 
