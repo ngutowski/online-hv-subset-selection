@@ -1,6 +1,6 @@
 # Top-k Pareto Bandits: Hypervolume Regret for Multi-Objective Slate Selection
 
-Code for the paper *"Top-k Pareto Bandits: Hypervolume Regret for Multi-Objective Slate Selection"*.
+Code for the [paper](https://arxiv.org/abs/2607.26273) *Top-k Pareto Bandits: Hypervolume Regret for Multi-Objective Slate Selection*. [DOI: 10.48550/arXiv.2607.26273](https://doi.org/10.48550/arXiv.2607.26273)
 
 ---
 
