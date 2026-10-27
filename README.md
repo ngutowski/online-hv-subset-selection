@@ -1,6 +1,9 @@
-# Top-k Pareto Bandits: Hypervolume Regret for Multi-Objective Slate Selection
+# Online Hypervolume Subset Selection under Semi-Bandit Feedback
 
-Code for the [paper](https://arxiv.org/abs/2607.26273) *Top-k Pareto Bandits: Hypervolume Regret for Multi-Objective Slate Selection*. [DOI: 10.48550/arXiv.2607.26273](https://doi.org/10.48550/arXiv.2607.26273)
+Code and data scripts for the paper *Online Hypervolume Subset Selection under Semi-Bandit Feedback* (N. Gutowski, F. Chhel, A. Letard, S. Lamprier), submitted to *Applied Soft Computing*.
+
+This is an extended version of the arXiv preprint [*Top-k Pareto Bandits: Hypervolume Regret for Multi-Objective Slate Selection*](https://arxiv.org/abs/2607.26273v1) ([DOI: 10.48550/arXiv.2607.26273](https://doi.org/10.48550/arXiv.2607.26273)), whose code remains available, unchanged, at [ngutowski/topk-pareto-bandits](https://github.com/ngutowski/topk-pareto-bandits) (tag `v1-arxiv`).
+The algorithms and the synthetic experiments are identical; this repository adds the **real-data case studies** (`real_data/`): recommendation, online advertising and algorithm portfolios.
 
 ---
 
@@ -16,6 +19,7 @@ This repository implements **THV-UCB**, an optimistic algorithm for the Top-k Pa
 |---|---|
 | `model.py` | All algorithm classes, environment generation, hypervolume utilities, and runner |
 | `exec.py` | Main experiment script - parse args, run all algorithms, save results and plots |
+| `real_data/` | Real-data case studies (log-bootstrap environments, ScalarUCB-Norm baseline, analysis scripts) - see [`real_data/README.md`](real_data/README.md) |
 
 ---
 
@@ -26,7 +30,8 @@ numpy
 matplotlib
 ```
 
-No other dependencies. The hypervolume is computed exactly via inclusion-exclusion (tractable for small k).
+No other dependencies for the synthetic experiments. The hypervolume is computed exactly via inclusion-exclusion (tractable for small k).
+The real-data case studies additionally require `pandas` and `scipy`.
 
 ---
 
@@ -164,3 +169,27 @@ This Figure summarizes over four synthetic fronts (_d=5, n=150, k=6, σ=0.02, T=
 
 ![Regret, d=5](figures/Regret_d5.png)
 
+
+
+---
+
+## Real-data case studies
+
+Six public datasets, three domains, two settings each (d=2, k=3 and d=3, k=4), i.e. twelve settings:
+
+| Domain | Dataset | Arms | Objectives |
+|---|---|---|---|
+| Recommendation | KuaiRand-Pure | 100 videos | long view, like, profile visit |
+| Recommendation | MovieLens-1M | 100 movies | like (overall / women / men), discovery |
+| Recommendation | Goodbooks-10k | 100 books | 5-star, to-read, discovery |
+| Online advertising | Criteo Attribution | 100 campaigns | click, conversion, low cost |
+| Algorithm portfolios | ASlib SAT12 | 31 SAT solvers | solved rate on crafted / industrial / random instances |
+| Algorithm portfolios | ASlib QBF-2014 | 14 QBF solvers | solved rate on three benchmark sets |
+
+Arms and objectives come from real logs; pulling an arm resamples a real record, and the optimal slate is computed exactly.
+The 14 methods above are compared with a 15th baseline, **ScalarUCB-Norm** (ScalarUCB with an online min-max normalization of the objectives).
+THV-UCB obtains the best average rank on final hypervolume (1.75, against 3.25 for ScalarUCB-Norm and 4.58 for ParetoUCB+); it is first in 6 settings out of 12 and never below third.
+
+![HV trajectories, real data](real_data/out/figures/real_hv.png)
+
+Datasets are not redistributed (license restrictions); `real_data/download_data.sh` fetches them, and `real_data/README.md` gives all commands to reproduce the tables and figures of the paper.

@@ -1,0 +1,20 @@
+\begin{tabular}{l lrrl lrrl}
+\toprule
+ & \multicolumn{4}{c}{Final HV (\% of $V^\star$), $H_1$: THV-UCB $>$ baseline} & \multicolumn{4}{c}{Cum. $\alpha$-regret$/V^\star$, $H_1$: THV-UCB $<$ baseline}\\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+Setting & Best baseline & THV & Base. & $p$ & Best baseline & THV & Base. & $p$\\
+\midrule
+KuaiRand-Pure, $d=2$ & ScalarUCB-Norm & 93.2 & 96.0 & 0.25 & ScalarUCB-Norm & 234.8 & 156.3 & 0.84\\
+KuaiRand-Pure, $d=3$ & ScalarUCB-Norm & 95.2 & 91.1 & 0.31 & ParetoUCB-Crowd & 241.0 & 166.7 & 0.98\\
+MovieLens-1M, $d=2$ & ParetoUCB+ & 98.1 & 98.2 & 0.69 & ParetoUCB-Crowd & 0.0 & 0.0 & 1\\
+MovieLens-1M, $d=3$ & ParetoUCB-Crowd & 98.8 & 98.8 & 0.54 & ParetoUCB+ & 0.2 & 0.2 & 0.94\\
+Goodbooks-10k, $d=2$ & ScalarUCB-Norm & 87.4 & 95.3 & 0.5 & ParetoUCB+ & 262.7 & 220.2 & 0.81\\
+Goodbooks-10k, $d=3$ & HVScalarUCB+ & 90.5 & 94.3 & 0.22 & HVScalarUCB+ & 150.3 & 225.0 & 0.065\\
+Criteo, $d=2$ & ScalarUCB-Norm & 94.7 & 96.0 & 0.97 & ChebyshevUCB+ & 45.2 & 31.4 & 1\\
+Criteo, $d=3$ & ScalarUCB-Norm & 96.3 & 95.8 & 0.22 & HVScalarUCB+ & 37.3 & 35.7 & 0.58\\
+SAT12, $d=2$ & ParetoUCB+ & 99.0 & 98.2 & 0.032 & ParetoUCB-Div & 10.5 & 8.0 & 1\\
+SAT12, $d=3$ & HVScalarUCB+ & 98.8 & 98.6 & 0.22 & ParetoUCB-Div & 7.8 & 6.6 & 1\\
+QBF-2014, $d=2$ & ParetoUCB-Crowd & 99.9 & 99.6 & 0.018 & HVScalarUCB+ & 0.2 & 0.2 & 1\\
+QBF-2014, $d=3$ & ParetoUCB-Div & 99.3 & 99.4 & 0.54 & ParetoUCB-Div & 0.1 & 0.1 & 0.92\\
+\bottomrule
+\end{tabular}

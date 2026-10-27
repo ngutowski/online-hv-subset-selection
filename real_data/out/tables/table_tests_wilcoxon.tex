@@ -1,0 +1,14 @@
+\begin{tabular}{l lrrl lrrl}
+\toprule
+ & \multicolumn{4}{c}{Final HV (\% of $V^\star$)} & \multicolumn{4}{c}{Cum.\ $\alpha$-regret$/V^\star$}\\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+Setting & Best baseline & THV & Base. & $p$ & Best baseline & THV & Base. & $p$\\
+\midrule
+KuaiRand-Pure, $d=2$ & ScalarUCB-Norm & 93.2 & 96.0 & 0.25 & ScalarUCB-Norm & 234.8 & 156.3 & 0.84\\
+KuaiRand-Pure, $d=3$ & ScalarUCB-Norm & 95.2 & 91.1 & 0.31 & ParetoUCB-Crowd & 241.0 & 166.7 & 0.98\\
+MovieLens-1M, $d=2$ & ParetoUCB+ & 98.1 & 98.2 & 0.69 & ParetoUCB-Crowd & 0.0 & 0.0 & 1\\
+MovieLens-1M, $d=3$ & ParetoUCB-Crowd & 98.8 & 98.8 & 0.54 & ParetoUCB+ & 0.2 & 0.2 & 0.94\\
+Goodbooks-10k, $d=2$ & ScalarUCB-Norm & 87.4 & 95.3 & 0.5 & ParetoUCB+ & 262.7 & 220.2 & 0.81\\
+Goodbooks-10k, $d=3$ & HVScalarUCB+ & 90.5 & 94.3 & 0.22 & HVScalarUCB+ & 150.3 & 225.0 & 0.065\\
+\bottomrule
+\end{tabular}

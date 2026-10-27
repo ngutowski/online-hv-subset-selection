@@ -1,0 +1,89 @@
+\begin{tabular}{ll l r}
+\toprule
+Setting & Algorithm & Mean objective values of exposed items & Pareto items exposed\\
+\midrule
+KuaiRand-Pure, $d=2$ & $S^\star$ (oracle) & long view 0.509, profile visit 0.095 & 3\\
+ & THV-UCB (ours) & 0.526, 0.082 & 3.6\\
+ & ScalarUCB-Norm & 0.458, 0.102 & 5.1\\
+ & HVScalarUCB+ & 0.420, 0.082 & 7.3\\
+ & ScalarUCB & 0.594, 0.028 & 2.1\\
+ & RandomK & 0.397, 0.027 & 8.8\\
+\midrule
+KuaiRand-Pure, $d=3$ & $S^\star$ (oracle) & long view 0.495, like 0.043, profile visit 0.068 & 4\\
+ & THV-UCB (ours) & 0.484, 0.040, 0.067 & 6.1\\
+ & ScalarUCB-Norm & 0.498, 0.044, 0.061 & 5.1\\
+ & HVScalarUCB+ & 0.403, 0.039, 0.061 & 10.5\\
+ & ScalarUCB & 0.546, 0.028, 0.029 & 13.8\\
+ & RandomK & 0.397, 0.019, 0.026 & 15.7\\
+\midrule
+MovieLens-1M, $d=2$ & $S^\star$ (oracle) & like 0.835, discovery 0.728 & 3\\
+ & THV-UCB (ours) & 0.818, 0.716 & 1.7\\
+ & ScalarUCB-Norm & 0.823, 0.736 & 4.2\\
+ & HVScalarUCB+ & 0.797, 0.718 & 2.2\\
+ & ScalarUCB & 0.855, 0.753 & 2.1\\
+ & RandomK & 0.732, 0.698 & 5.5\\
+\midrule
+MovieLens-1M, $d=3$ & $S^\star$ (oracle) & like (women) 0.890, like (men) 0.903, discovery 0.682 & 4\\
+ & THV-UCB (ours) & 0.822, 0.839, 0.711 & 4.4\\
+ & ScalarUCB-Norm & 0.866, 0.884, 0.718 & 3.8\\
+ & HVScalarUCB+ & 0.820, 0.837, 0.696 & 6.1\\
+ & ScalarUCB & 0.864, 0.880, 0.721 & 3.8\\
+ & RandomK & 0.713, 0.738, 0.697 & 12.0\\
+\midrule
+Goodbooks-10k, $d=2$ & $S^\star$ (oracle) & 5-star 0.569, to-read 0.029 & 3\\
+ & THV-UCB (ours) & 0.533, 0.026 & 2.7\\
+ & ScalarUCB-Norm & 0.468, 0.032 & 3.9\\
+ & HVScalarUCB+ & 0.423, 0.029 & 4.0\\
+ & ScalarUCB & 0.579, 0.016 & 1.8\\
+ & RandomK & 0.373, 0.016 & 4.9\\
+\midrule
+Goodbooks-10k, $d=3$ & $S^\star$ (oracle) & 5-star 0.517, discovery 0.788, to-read 0.030 & 4\\
+ & THV-UCB (ours) & 0.506, 0.809, 0.024 & 5.3\\
+ & ScalarUCB-Norm & 0.436, 0.834, 0.028 & 10.0\\
+ & HVScalarUCB+ & 0.416, 0.808, 0.028 & 12.0\\
+ & ScalarUCB & 0.546, 0.832, 0.015 & 2.5\\
+ & RandomK & 0.373, 0.809, 0.016 & 14.8\\
+\midrule
+Criteo, $d=2$ & $S^\star$ (oracle) & click 0.564, conversion 0.176 & 3\\
+ & THV-UCB (ours) & 0.540, 0.160 & 2.8\\
+ & ScalarUCB-Norm & 0.499, 0.185 & 3.7\\
+ & HVScalarUCB+ & 0.472, 0.193 & 2.9\\
+ & ScalarUCB & 0.567, 0.156 & 3.3\\
+ & RandomK & 0.361, 0.050 & 4.7\\
+\midrule
+Criteo, $d=3$ & $S^\star$ (oracle) & click 0.456, conversion 0.169, low cost 0.648 & 4\\
+ & THV-UCB (ours) & 0.475, 0.155, 0.614 & 4.3\\
+ & ScalarUCB-Norm & 0.447, 0.173, 0.576 & 10.1\\
+ & HVScalarUCB+ & 0.458, 0.185, 0.532 & 9.0\\
+ & ScalarUCB & 0.407, 0.117, 0.737 & 8.5\\
+ & RandomK & 0.361, 0.049, 0.515 & 12.9\\
+\midrule
+SAT12, $d=2$ & $S^\star$ (oracle) & industrial 0.580, random 0.778 & 3\\
+ & THV-UCB (ours) & 0.566, 0.721 & 3.0\\
+ & ScalarUCB-Norm & 0.830, 0.709 & 2.0\\
+ & HVScalarUCB+ & 0.776, 0.671 & 3.7\\
+ & ScalarUCB & 0.830, 0.709 & 2.1\\
+ & RandomK & 0.584, 0.338 & 5.0\\
+\midrule
+SAT12, $d=3$ & $S^\star$ (oracle) & crafted 0.558, industrial 0.651, random 0.609 & 4\\
+ & THV-UCB (ours) & 0.560, 0.626, 0.653 & 3.8\\
+ & ScalarUCB-Norm & 0.632, 0.798, 0.578 & 4.7\\
+ & HVScalarUCB+ & 0.626, 0.753, 0.625 & 4.2\\
+ & ScalarUCB & 0.630, 0.794, 0.586 & 5.0\\
+ & RandomK & 0.472, 0.571, 0.349 & 5.0\\
+\midrule
+QBF-2014, $d=2$ & $S^\star$ (oracle) & applications 0.596, eval2012 0.501 & 3\\
+ & THV-UCB (ours) & 0.594, 0.501 & 2.9\\
+ & ScalarUCB-Norm & 0.604, 0.488 & 3.1\\
+ & HVScalarUCB+ & 0.596, 0.492 & 2.8\\
+ & ScalarUCB & 0.603, 0.484 & 4.0\\
+ & RandomK & 0.480, 0.418 & 4.0\\
+\midrule
+QBF-2014, $d=3$ & $S^\star$ (oracle) & applications 0.594, eval2012 0.496, preprocessing 0.396 & 4\\
+ & THV-UCB (ours) & 0.575, 0.485, 0.380 & 4.3\\
+ & ScalarUCB-Norm & 0.610, 0.480, 0.435 & 3.7\\
+ & HVScalarUCB+ & 0.598, 0.468, 0.421 & 3.6\\
+ & ScalarUCB & 0.604, 0.480, 0.427 & 4.6\\
+ & RandomK & 0.483, 0.421, 0.354 & 5.0\\
+\bottomrule
+\end{tabular}
