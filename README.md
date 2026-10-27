@@ -190,6 +190,8 @@ Arms and objectives come from real logs; pulling an arm resamples a real record,
 The 14 methods above are compared with a 15th baseline, **ScalarUCB-Norm** (ScalarUCB with an online min-max normalization of the objectives).
 THV-UCB obtains the best average rank on final hypervolume (1.75, against 3.25 for ScalarUCB-Norm and 4.58 for ParetoUCB+); it is first in 6 settings out of 12 and never below third.
 
-![HV trajectories, real data](real_data/out/figures/real_hv.png)
+![HV trajectories, recommendation](real_data/out/figures/real_hv_1.png)
+![HV trajectories, recommendation and advertising](real_data/out/figures/real_hv_2.png)
+![HV trajectories, solver portfolios](real_data/out/figures/real_hv_3.png)
 
 Datasets are not redistributed (license restrictions); `real_data/download_data.sh` fetches them, and `real_data/README.md` gives all commands to reproduce the tables and figures of the paper.

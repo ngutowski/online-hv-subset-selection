@@ -186,10 +186,11 @@ def figures(data, summary):
     cfgs = [c for c in CFGS if c in summary]
     T = next(iter(data.values()))[1]['THV-UCB']['hv'].shape[1]; x = np.arange(1, T + 1)
     # ---- HV trajectories
-    for kind in ['hv', 'regret']:
-        fig, axes = plt.subplots(2, 6, figsize=(13.5, 4.6), sharex=True)
-        for j, c in enumerate(cfgs):
-            ax = axes[int(c[-1]) - 2, ['kuai', 'ml', 'gb', 'crit', 'sat', 'qbf'].index(c.split('-')[0])]
+    GROUPS = [['kuai', 'ml'], ['gb', 'crit'], ['sat', 'qbf']]
+    for kind, (gi, grp) in [(k_, g_) for k_ in ['hv', 'regret'] for g_ in enumerate(GROUPS)]:
+        fig, axes = plt.subplots(2, 2, figsize=(7.2, 5.6), sharex=True)
+        for j, c in enumerate([c for c in cfgs if c.split('-')[0] in grp]):
+            ax = axes[int(c[-1]) - 2, grp.index(c.split('-')[0])]
             env, res = data[c]
             for a in PLOT_SET[::-1]:
                 r = res[a]
@@ -210,9 +211,9 @@ def figures(data, summary):
         for ax in axes[:, 0]:
             ax.set_ylabel(r'$\mathrm{HV}(S_t)/V^\star$ (moving avg.)' if kind == 'hv' else r'Cum. $\alpha$-regret $/V^\star$')
         h, l = axes[0, 0].get_legend_handles_labels()
-        fig.legend(h[::-1], l[::-1], loc='lower center', ncol=7, frameon=False, bbox_to_anchor=(0.5, -0.01), handlelength=1.6, columnspacing=1.0)
-        fig.tight_layout(rect=(0, 0.05, 1, 1))
-        fig.savefig(OUT + f"figures/real_{kind}.pdf", bbox_inches='tight'); fig.savefig(OUT + f"figures/real_{kind}.png", dpi=200, bbox_inches='tight')
+        fig.legend(h[::-1], l[::-1], loc='lower center', ncol=4, frameon=False, bbox_to_anchor=(0.5, -0.01), handlelength=1.6, columnspacing=1.0)
+        fig.tight_layout(rect=(0, 0.075, 1, 1))
+        fig.savefig(OUT + f"figures/real_{kind}_{gi + 1}.pdf", bbox_inches='tight'); fig.savefig(OUT + f"figures/real_{kind}_{gi + 1}.png", dpi=200, bbox_inches='tight')
         plt.close(fig)
     # ---- objective space (d=2 configs): items, front, S*, most frequent final slate (seed 0)
     d2 = [c for c in cfgs if c.endswith('d2')]
