@@ -275,6 +275,27 @@ def table_hv_ranked(data, summary):
             L.append(r"\midrule")
     L += [r"\bottomrule", r"\end{tabular}"]
     open(OUT + 'tables/table_hv.tex', 'w').write("\n".join(L) + "\n")
+    # ---- same table split in three (same grouping as the HV figures); Avg. rank is over all settings
+    order = sorted(algos, key=lambda a: (a != 'THV-UCB', np.mean(ranks[a])))
+    for gi, grp in enumerate([['kuai', 'ml'], ['gb', 'crit'], ['sat', 'qbf']]):
+        gc = [c for c in cfgs if c.split('-')[0] in grp]
+        L = [r"\begin{tabular}{ll" + "r" * len(gc) + "r}", r"\toprule",
+             " & & " + " & ".join(r"\multicolumn{2}{c}{%s}" % DSNAME[x] for x in grp) + r" & \\",
+             r"\cmidrule(lr){3-4}\cmidrule(lr){5-6}",
+             r"Algorithm & Fid. & $d=2$ & $d=3$ & $d=2$ & $d=3$ & Avg.\ rank\\", r"\midrule",
+             r"\textit{Pairwise correlation $\rho$} & & " + " & ".join(r"{\scriptsize " + cells[cfgs.index(c)] + "}" for c in gc) + r" & \\",
+             r"\midrule"]
+        for a in order:
+            pname, fid = NAMES[a]
+            row = []
+            for c in gc:
+                r = summary[c][a]; s_ = fmt_pm(r['hv'], r['hv_ci'], 1)
+                if abs(r['hv'] - best[c]) < 1e-9: s_ = r"\textbf{" + s_ + "}"
+                row.append(s_)
+            L.append(f"{pname} & {fid} & " + " & ".join(row) + f" & {np.mean(ranks[a]):.2f}" + r"\\")
+            if a == 'THV-UCB': L.append(r"\midrule")
+        L += [r"\bottomrule", r"\end{tabular}"]
+        open(OUT + f'tables/table_hv_{gi + 1}.tex', 'w').write("\n".join(L) + "\n")
 
 if __name__ == '__main__':
     data, summary = build()

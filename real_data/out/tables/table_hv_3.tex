@@ -1,0 +1,26 @@
+\begin{tabular}{llrrrrr}
+\toprule
+ & & \multicolumn{2}{c}{SAT12} & \multicolumn{2}{c}{QBF-2014} & \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Algorithm & Fid. & $d=2$ & $d=3$ & $d=2$ & $d=3$ & Avg.\ rank\\
+\midrule
+\textit{Pairwise correlation $\rho$} & & {\scriptsize $-$0.74} & {\scriptsize 0.85 / $-$0.44 / $-$0.74} & {\scriptsize 0.58} & {\scriptsize 0.58 / 0.58 / $-$0.08} & \\
+\midrule
+THV-UCB (ours) &  & \textbf{99.0{\scriptsize$\pm$0.6}} & \textbf{98.8{\scriptsize$\pm$0.8}} & \textbf{99.9{\scriptsize$\pm$0.1}} & 99.3{\scriptsize$\pm$0.5} & 1.75\\
+\midrule
+ScalarUCB-Norm & $\circ$ & 97.4{\scriptsize$\pm$0.0} & 98.4{\scriptsize$\pm$0.0} & 98.7{\scriptsize$\pm$0.5} & 98.8{\scriptsize$\pm$0.1} & 3.25\\
+ParetoUCB+ & $\circ$ & 98.2{\scriptsize$\pm$0.4} & 98.4{\scriptsize$\pm$0.0} & 98.9{\scriptsize$\pm$0.6} & 99.0{\scriptsize$\pm$0.4} & 4.58\\
+ParetoUCB-Div & $\circ$ & 97.3{\scriptsize$\pm$0.5} & 97.9{\scriptsize$\pm$0.6} & 99.5{\scriptsize$\pm$0.4} & \textbf{99.4{\scriptsize$\pm$0.3}} & 4.67\\
+HVScalarUCB+ & $\bullet$ & 97.3{\scriptsize$\pm$0.4} & 98.6{\scriptsize$\pm$0.1} & 97.8{\scriptsize$\pm$1.1} & 97.9{\scriptsize$\pm$1.2} & 5.25\\
+ParetoUCB-Crowd & $\circ$ & 89.8{\scriptsize$\pm$13.9} & 97.3{\scriptsize$\pm$0.7} & 99.6{\scriptsize$\pm$0.4} & 99.2{\scriptsize$\pm$0.5} & 5.75\\
+ScalarUCB & $\circ$ & 97.4{\scriptsize$\pm$0.0} & 98.4{\scriptsize$\pm$0.0} & 98.3{\scriptsize$\pm$0.6} & 98.8{\scriptsize$\pm$0.2} & 7.00\\
+ChebyshevUCB+ & $\circ$ & 97.4{\scriptsize$\pm$0.0} & 98.4{\scriptsize$\pm$0.0} & 90.6{\scriptsize$\pm$4.7} & 97.1{\scriptsize$\pm$3.1} & 7.75\\
+HVScalarUCB & $\bullet$ & 93.8{\scriptsize$\pm$1.8} & 97.5{\scriptsize$\pm$0.5} & 94.8{\scriptsize$\pm$3.0} & 97.7{\scriptsize$\pm$1.2} & 8.83\\
+ScalarUCB-RandW & $\circ$ & 83.0{\scriptsize$\pm$1.9} & 97.3{\scriptsize$\pm$1.2} & 97.0{\scriptsize$\pm$0.6} & 98.5{\scriptsize$\pm$0.4} & 9.83\\
+ParetoTS & $\bullet$ & 79.7{\scriptsize$\pm$1.4} & 88.1{\scriptsize$\pm$3.4} & 97.4{\scriptsize$\pm$0.9} & 95.9{\scriptsize$\pm$1.0} & 10.50\\
+ParetoTS+ & $\circ$ & 97.0{\scriptsize$\pm$0.2} & 97.9{\scriptsize$\pm$0.2} & 98.3{\scriptsize$\pm$0.2} & 98.5{\scriptsize$\pm$0.1} & 10.75\\
+ChebyshevUCB & $\bullet$ & 84.0{\scriptsize$\pm$1.1} & 63.3{\scriptsize$\pm$1.1} & 94.2{\scriptsize$\pm$2.8} & 97.0{\scriptsize$\pm$0.8} & 11.33\\
+ParetoUCB & $\bullet$ & 54.1{\scriptsize$\pm$3.7} & 62.9{\scriptsize$\pm$2.7} & 87.2{\scriptsize$\pm$0.8} & 85.9{\scriptsize$\pm$1.5} & 13.83\\
+RandomK & -- & 41.6{\scriptsize$\pm$1.6} & 44.1{\scriptsize$\pm$2.5} & 75.6{\scriptsize$\pm$0.9} & 77.5{\scriptsize$\pm$0.7} & 14.92\\
+\bottomrule
+\end{tabular}
